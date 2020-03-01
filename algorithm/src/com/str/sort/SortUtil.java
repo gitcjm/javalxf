@@ -110,4 +110,85 @@ public class SortUtil {
         a[m] = a[n];
         a[n] = temp;
     }
+
+    // 冒泡排序
+    public static void bubbleSort(int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length-i-1; j++) {
+                if (a[j] > a[j + 1]) {
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    // 快速排序
+
+    /**
+     * 归并排序
+     * 算法：分治法
+     * 1）先考虑将两个有序数组合并成一个数组的问题
+     * 2）归并排序就是：先递归分解数组，再合并数组即可
+     *      如何让分解后的数组有序？
+     *      其实很简单，当分解的数组只有一个元素的时候，就是有序的麻！
+     **/
+    public static void mergeArrayTest(int[] a, int m, int[] b, int n, int[] c) {
+        // 定义 a, b, c 三个数组的索引
+        int i, j, k;
+        i = j = k = 0;
+
+        while (i < m && j < n) {
+            if (a[i] <= b[j]) {
+                c[k++] = a[i++];
+            } else {
+                c[k++] = b[j++];
+            }
+        }
+
+        while (i < m) {
+            c[k++] = a[i++];
+        }
+        while (j < n) {
+            c[k++] = b[j++];
+        }
+    }
+
+    private static void mergeArray(int[] a) {
+        int len = a.length;
+        int i = 0;      // 左半部数组的索引
+        int m = len/2;  // 左半部数组的长度
+        int j = m;      // 右半部数组的起始索引
+        int n = len;    // 右半部数组的结束位置
+        int k = 0;      // 合并后数组的索引
+        int[] t = new int[len];
+
+        // 谁小先取谁
+        while (i < m && j < n) {
+            if (a[i] <= a[j]) {
+                t[k++] = a[i++];
+            } else {
+                t[k++] = a[j++];
+            }
+        }
+
+        // 剩余放后面
+        while (i < m) t[k++] = a[i++];
+        while (j < n) t[k++] = a[j++];
+
+        // 排序后的数组赋給 a[]
+        for (i = 0; i < k; i++) {
+            a[i] = t[i];
+        }
+    }
+
+    public static void mergeSort(int[] a, int start, int end) {
+        if (start < end) {
+            int mid = (start + end) / 2;
+            mergeSort(a, start, mid);
+            mergeSort(a, mid+1, end);
+            mergeArray(a);
+        }
+    }
 }
