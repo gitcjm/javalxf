@@ -21,15 +21,24 @@ public class TestSort {
         SortUtil.heapSort(arr);
         System.out.println("堆排序：" + Arrays.toString(arr))*/;
 
-        // 快速排序
+        /*// 冒泡排序
+        SortUtil.bubbleSort(arr);
+        System.out.println("冒泡排序：" + Arrays.toString(arr));*/
+
+        /*// 快速排序
         SortUtil.quickSort(arr, 0, arr.length-1);
-        System.out.println("快速排序：" + Arrays.toString(arr));
-    }
+        System.out.println("快速排序：" + Arrays.toString(arr));*/
 
-    private static int[] genRandArray() {
-        int[] result;
+        /*// 测试合并两个有序数组
+        int[] arr1 = {3, 5, 7, 8, 9, 12};
+        int[] arr2 = {1, 2, 6, 8};
+        int[] arrMerged =  new int[arr1.length + arr2.length];
+        SortUtil.mergeArrayTest(arr1, arr1.length, arr2, arr2.length, arrMerged);
+        System.out.println(Arrays.toString(arrMerged));*/
 
+        // 归并排序
+        SortUtil.mergeSort(arr, 0, arr.length-1);
+        System.out.println("归并排序：" + Arrays.toString(arr));
 
-        return result;
     }
 }

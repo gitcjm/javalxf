@@ -111,6 +111,19 @@ public class SortUtil {
         a[n] = temp;
     }
 
+    // 冒泡排序
+    public static void bubbleSort(int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length-i-1; j++) {
+                if (a[j] > a[j + 1]) {
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+        }
+    }
+
     /**
      * 快速排序
      * 算法：挖坑填数法
@@ -141,6 +154,78 @@ public class SortUtil {
             // 递归调用，也就是教科书上说的分治法
             quickSort(a, low, i-1);
             quickSort(a, i+1, high);
+        }
+    }
+
+    /**
+     * 归并排序
+     * 算法：分治法
+     * 1）先考虑将两个有序数组合并成一个数组的问题
+     * 2）归并排序就是：先递归分解数组，再合并数组即可
+     *      如何让分解后的数组有序？
+     *      其实很简单，当分解的数组只有一个元素的时候，就是有序的麻！
+     **/
+    // 合并数组测试
+    public static void mergeArrayTest(int[] a, int m, int[] b, int n, int[] c) {
+        // 定义 a, b, c 三个数组的索引
+        int i, j, k;
+        i = j = k = 0;
+
+        while (i < m && j < n) {
+            if (a[i] <= b[j]) {
+                c[k++] = a[i++];
+            } else {
+                c[k++] = b[j++];
+            }
+        }
+
+        while (i < m) {
+            c[k++] = a[i++];
+        }
+        while (j < n) {
+            c[k++] = b[j++];
+        }
+    }
+
+    /**
+     * 合并数组
+     * */
+    private static void mergeArray(int[] a, int start, int end, int mid) {
+        int i = start;      // 左半部数组的起始索引
+        int j = mid + 1;    // 右半部数组的起始索引
+        int m = mid;        // 左半部数组的结束位置
+        int n = end;        // 右半部数组的结束位置
+        int k = 0;          // 合并后数组的索引
+        int[] t = new int[a.length];
+
+        // 谁小先取谁
+        while (i <= m && j <= n) {
+            if (a[i] <= a[j]) {
+                t[k++] = a[i++];
+            } else {
+                t[k++] = a[j++];
+            }
+        }
+
+        // 剩余放后面
+        while (i <= m) t[k++] = a[i++];
+        while (j <= n) t[k++] = a[j++];
+
+        // 排序后的数组赋給 a[]
+        for (i = 0; i < k; i++) {
+            a[i] = t[i];
+        }
+    }
+
+    /**
+     * 归并排序
+     * */
+    public static void mergeSort(int[] a, int start, int end) {
+        if (start < end) {
+            int mid = (start + end)/2;
+            mergeSort(a, start, mid);
+            mergeSort(a, mid+1, end);
+            mergeArray(a, start, end, mid);
         }
     }
 }
