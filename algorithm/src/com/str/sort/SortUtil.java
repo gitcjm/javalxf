@@ -110,4 +110,37 @@ public class SortUtil {
         a[m] = a[n];
         a[n] = temp;
     }
+
+    /**
+     * 快速排序
+     * 算法：挖坑填数法
+     *     （教科书上说的是分治法，实际上，分治法只占次要地位，不提也罢）
+     * 1) i=low; j=high; 将基准数挖出形成第一个坑 a[i];
+     * 2) j-- 由后向前，查找比基数小的数，找到后，挖出此数，填到第一个坑 a[i] 中;
+     * 3) i++ 由前向后，查找比基数大的数，找到后，挖出此数，填到前一个坑 a[j] 中；
+     * 4) 重复第2、3步，直到 i=j, 将基准数填入 a[i] 中；
+     *
+     * */
+    public static void quickSort(int[] a, int low, int high) {
+        if (low < high) {
+            int i = low, j = high;
+            // 基数，也是第一个坑
+            int x = a[low];
+
+            // 挖坑填数
+            while (i < j) {
+                // 由后向前，查找小于基准的数，来填 a[i]
+                while (i < j && a[j] >= x) j--;
+                if (i < j) a[i++] = a[j];
+                // 由前向后，查找大于基准的数，来填 a[j]
+                while (i < j && a[i] < x) i++;
+                if (i < j) a[j--] = a[i];
+            }
+            a[i] = x;
+
+            // 递归调用，也就是教科书上说的分治法
+            quickSort(a, low, i-1);
+            quickSort(a, i+1, high);
+        }
+    }
 }

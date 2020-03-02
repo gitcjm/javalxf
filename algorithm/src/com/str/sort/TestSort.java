@@ -17,8 +17,19 @@ public class TestSort {
         SortUtil.selectSort(arr);
         System.out.println("简单排序：" + Arrays.toString(arr));*/
 
-        // 堆排序
+        /*// 堆排序
         SortUtil.heapSort(arr);
-        System.out.println("堆排序：" + Arrays.toString(arr));
+        System.out.println("堆排序：" + Arrays.toString(arr))*/;
+
+        // 快速排序
+        SortUtil.quickSort(arr, 0, arr.length-1);
+        System.out.println("快速排序：" + Arrays.toString(arr));
+    }
+
+    private static int[] genRandArray() {
+        int[] result;
+
+
+        return result;
     }
 }
