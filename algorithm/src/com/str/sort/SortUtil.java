@@ -189,13 +189,16 @@ public class SortUtil {
 
     /**
      * 合并数组
+     *
      * */
     private static void mergeArray(int[] a, int start, int end, int mid) {
         int i = start;      // 左半部数组的起始索引
-        int j = mid + 1;    // 右半部数组的起始索引
         int m = mid;        // 左半部数组的结束位置
+        int j = mid + 1;    // 右半部数组的起始索引
         int n = end;        // 右半部数组的结束位置
         int k = 0;          // 合并后数组的索引
+        // 如果将临时数组放在主程序里创建，会进一步提高效率，但显得不优雅。
+        // 数据量特别大时，可以这么处理。
         int[] t = new int[a.length];
 
         // 谁小先取谁
@@ -213,7 +216,7 @@ public class SortUtil {
 
         // 排序后的数组赋給 a[]
         for (i = 0; i < k; i++) {
-            a[i] = t[i];
+            a[start+i] = t[i];
         }
     }
 
