@@ -7,7 +7,7 @@ public class HashTest {
         String string = "123456";
         System.out.println(MD5Util.md5(string));
 
-        File file = new File("/home/cjm/IdeaProjects/algorithm/test.file");
+        File file = new File("/home/cjm/IdeaProjects/Algorithm/test.file");
         System.out.println(MD5Util.md5(file));
 
         System.out.println(HashUtil.hash(string, "MD5"));
