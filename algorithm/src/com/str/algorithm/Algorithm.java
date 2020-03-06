@@ -29,6 +29,22 @@ public class Algorithm {
                 break;
         }
 
+        // 第j位为1,说明这两个数字在第j位上是不相同的
+        // 由此分组即可。直接异或出结果，而不需要分开的两个数组
+        int[] r = new int[2];
+        for (i = 0; i < a.length; i++) {
+            if (((a[i] >> j) & 1) == 1) {
+                r[0] ^= a[i];
+            } else {
+                r[1] ^= a[i];
+            }
+        }
+
+        return r;
+
+        // 犯了以下的错误，说明我对位运算还是不熟悉啊！
+        // 倒是可以把分开的数组打出来看看！
+        /*
         // 据j位的0/1值，将数组 a 分成两个数组。
         // 如此，这两个落单数，必然会被分在不同的数组中。
         // 这两个数组的长度不一定相等
@@ -42,12 +58,37 @@ public class Algorithm {
                 q[n++] = a[i];
             }
         }
-
+        /*
         // 分别在两个数组中找出落单的数
         int[] r = new int[2];
         r[0] = findOneAlone(p);
-        r[1] = findOneAlone(q);
+        r[1] = findOneAlone(q);*/
+    }
 
-        return r;
+    // 在数组A中，除了x出现了一次，其他都出现了三次，请快速找出这个x
+    public static int[] findAloneInTriplets(int[] a) {
+        // bits为x的二进制码
+        int[] bits = new int[Integer.SIZE];
+        int c = 0;
+
+        // 如果没有x的话，数组中的每个数都出现3次，在二进制上，每位上的1的个数都能被3整除
+        // 那么，有了x后，每位上1的个数除以3的余数（不是1就是0），就是x的二进制位值
+        for (int i = 0; i < Integer.SIZE; i++) {
+            for (int j = 0; j < a.length; j++) {
+                c += (a[j] >> i) & 1;
+            }
+            bits[i] = c % 3 ;
+            c = 0;
+        }
+
+        // 据二进制码数组，组装计算出x
+        /*int b = 0, x = 0;
+        for (int i = Integer.SIZE-1; i >= 0; i--) {
+            b = bits[i];
+            x = (1 << x) + b ;
+        }
+
+        return x;*/
+        return bits; // 看看x的二进制码
     }
 }
