@@ -1,8 +1,5 @@
 package com.str.algorithm;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class Algorithm {
     // 在一个数组中，除一个数字只出现了1次，其他都出现了2次，请找出这一个数字
     public static int findOneAlone(int[] a) {
@@ -66,13 +63,13 @@ public class Algorithm {
     }
 
     // 在数组A中，除了x出现了一次，其他都出现了三次，请快速找出这个x
-    public static int[] findAloneInTriplets(int[] a) {
+    public static int findAloneInTriplets(int[] a) {
         // bits为x的二进制码
         int[] bits = new int[Integer.SIZE];
         int c = 0;
 
         // 如果没有x的话，数组中的每个数都出现3次，在二进制上，每位上的1的个数都能被3整除
-        // 那么，有了x后，每位上1的个数除以3的余数（不是1就是0），就是x的二进制位值
+        // 那么，有了x后，每位上1的个数除以3，余数就是x的二进制位值
         for (int i = 0; i < Integer.SIZE; i++) {
             for (int j = 0; j < a.length; j++) {
                 c += (a[j] >> i) & 1;
@@ -81,14 +78,13 @@ public class Algorithm {
             c = 0;
         }
 
-        // 据二进制码数组，组装计算出x
-        /*int b = 0, x = 0;
+        // 据二进制码数组，生成x的二进制码
+        int x = 0;
         for (int i = Integer.SIZE-1; i >= 0; i--) {
-            b = bits[i];
-            x = (1 << x) + b ;
+            x = (x << 1) | bits[i] ;
         }
 
-        return x;*/
-        return bits; // 看看x的二进制码
+        return x;
+        //return bits; // 看看x的二进制码
     }
 }

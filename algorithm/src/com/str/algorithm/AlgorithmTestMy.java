@@ -4,7 +4,7 @@ import com.sun.org.apache.bcel.internal.generic.ALOAD;
 
 import java.util.Arrays;
 
-public class AlgorithmTest {
+public class AlgorithmTestMy {
     public static void main(String[] args) {
         // 在成对整数数组中，查找一个落单的数
         /*int[] arr = {2, 3, 5, 3, 9, 2, 5};
@@ -18,8 +18,8 @@ public class AlgorithmTest {
 
         // 在数组A中，除x只出现了一次外，其他数字都出现了3次，请找出x
         int[] arr3 = {5, 2, 12, 5, 2, 5, 2};
-        //System.out.println("那个只出现了一次的数字是：" + Algorithm.findAloneInTriplets(arr3));
+        System.out.println("那个只出现了一次的数字是：" + Algorithm.findAloneInTriplets(arr3));
         // 看看x的二进制码
-        System.out.println(Arrays.toString(Algorithm.findAloneInTriplets(arr3)));
+        //System.out.println(Arrays.toString(Algorithm.findAloneInTriplets(arr3)));
     }
 }
