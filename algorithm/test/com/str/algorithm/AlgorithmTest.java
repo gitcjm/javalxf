@@ -29,4 +29,35 @@ public class AlgorithmTest {
         int actual = Algorithm.findAloneInTriplets(arr);
         Assert.assertEquals(expected, actual);*/
     }
+
+    @Test
+    public void findPosInArray() {
+        int[] arr = {3, 4, 5, 4, 5, 6, 7, 8, 7, 6, 7, 8, 9, 10};
+        int expected = 2;
+        int actual = Algorithm.findPosInArray(arr, 5);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findRepeatedElement() {
+        int[] arr = {0, 5, 2, 0, 3, 4};
+        int expected = 0;
+        int actual = Algorithm.findRepeatedElement(arr);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findReserveNumPair() {
+        int[] array = {8,7,9,10,6,5};
+        int expected = 5;
+        int actual = Algorithm.findReverseNumPair(array);
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void generateSumArray() {
+        int[] array = Algorithm.genRandomArray(20, 5);
+        System.out.println(Arrays.toString(array));
+    }
 }

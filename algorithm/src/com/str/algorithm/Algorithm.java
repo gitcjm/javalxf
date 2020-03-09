@@ -1,5 +1,9 @@
 package com.str.algorithm;
 
+import java.util.Random;
+
+import static java.lang.Math.abs;
+
 public class Algorithm {
     // 在一个数组中，除一个数字只出现了1次，其他都出现了2次，请找出这一个数字
     public static int findOneAlone(int[] a) {
@@ -86,5 +90,78 @@ public class Algorithm {
 
         return x;
         //return bits; // 看看x的二进制码
+    }
+
+    // 数组A，相邻元素差的绝对值为1。现给定一个数x，请找出x在数组A中的位置
+    public static int findPosInArray(int[] a, int x) {
+        int len = a.length;
+        int dif = Math.abs(x - a[0]);
+
+        while (dif < len) {
+            if (a[dif] == x)
+                return dif;
+            dif += Math.abs(x - a[dif]);
+        }
+
+        return -1;
+    }
+
+    // 数组A，长度为n，其元素取值[0..n-1]（可以重复）
+    // 问题：查找第一个出现重复的数
+    public static int findRepeatedElement(int[] a) {
+        int len = a.length;
+        int t = 0;
+
+        for (int i = 0; i < len; i++) {
+            while (a[i] != i) {
+                if (a[i] == a[a[i]]) return a[i];
+                // 交换
+                t = a[a[i]];
+                a[a[i]] = a[i];
+                a[i] = t;
+            }
+        }
+
+        return -1;
+    }
+
+    // 寻找一个数组中的逆序数对
+    public static int findReverseNumPair(int[] a) {
+        int count = 0;
+        int len = a.length;
+
+        for (int i = 0; i < len; i++) {
+            for (int j = i + 1; j < len; j++) {
+                if (a[i] > a[j]) count++;
+            }
+        }
+
+        return count;
+    }
+
+    // 寻找一个数组中的逆序数对（合并数列法）
+
+    // 随机生成和为S的N个自然数（
+    // 原为N个正整数，但0不好避免，再者，当N大于S时，必然有0，故改为自然数）
+    public static int[] genRandomArray(int S, int N) {
+        // 生成小于S的N个随机正整数数组
+        int[] randArray = new int[N];
+        Random random = new Random();
+        for (int i = 0; i < N-1; i++) {
+            randArray[i] = random.nextInt(S - 1) + 1;
+        }
+        randArray[N-1] = S;
+
+        // 如果要求返回正整数数组，就得对 randArray 排序
+        com.str.sort.SortUtil.quickSort(randArray,0, N-1);
+
+        // 生成N个差值数组，其和为S
+        int[] difArray = new int[N];
+        for (int i = 0; i < N-1; i++) {
+            difArray[i+1] = randArray[i+1] - randArray[i];
+        }
+        difArray[0] = randArray[0];
+
+        return difArray;
     }
 }
