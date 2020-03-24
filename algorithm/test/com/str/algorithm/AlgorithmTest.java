@@ -60,4 +60,49 @@ public class AlgorithmTest {
         int[] array = Algorithm.genRandomArray(20, 5);
         System.out.println(Arrays.toString(array));
     }
+
+    @Test
+    public void factorial() {
+        int expected = 120;
+        int actual = Algorithm.factorial(10);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fiboCount() {
+        int expected = 5;
+        int actual = Algorithm.fiboCount(21);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fibonacci() {
+        /*int[] expected = {1,1,2,3,5,8};
+        int[] actual = Algorithm.fibonacci(10);
+        Assert.assertArrayEquals(expected, actual);*/
+        System.out.println(Arrays.toString(Algorithm.fibonacci(1000)));
+    }
+
+    @Test
+    public void swap() {
+        int[] arr = new int[2];
+        arr[0] = 2;
+        arr[1] = 5;
+        Algorithm.swap(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    @Test
+    public void KnuthShuffle() {
+        int[] arr = {1, 2, 3, 4, 5};
+        Algorithm.KnuthShuffle(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    @Test
+    public void sleepSort() {
+        int[] arr = {2,3,5,6,8,1,4,7,9};
+        Algorithm.sleepSort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
 }

@@ -164,4 +164,93 @@ public class Algorithm {
 
         return difArray;
     }
+
+    // 一个小甜点：阶乘的递归实现
+    public static int factorial(int n) {
+        if (n <= 0) return -1;
+
+        if (n == 1)
+            return 1;
+        else
+            return n * factorial(n-1);
+    }
+
+    // 小于等于n的斐波那契数列的元素个数
+    public static int fiboCount(int n) {
+        int a = 1, b = 1, t;
+        int p = 1;
+        while (b <= n) {
+            p++;
+
+            t = a;
+            a = b;
+            b = t + b;
+        }
+
+        return p;
+    }
+
+    // 生成小于等于n的斐波那契数列
+    public static int[] fibonacci(int n) {
+        int c = fiboCount(n);
+        int[] arr = new int[c];
+
+        arr[0] = 1;
+        arr[1] = 1;
+        for(int i = 2; i < c; i++) {
+            arr[i] = arr[i-1] + arr[i-2];
+        }
+
+        return arr;
+    }
+
+    // 交换两个元素
+    public static void swap(int[] a) {
+        // 常规法
+        /*int temp;
+        temp = a[0];
+        a[0] = a[1];
+        a[1] = temp;*/
+
+        // 异或法
+        a[0] = a[0] ^ a[1];
+        a[1] = a[0] ^ a[1];
+        a[0] = a[0] ^ a[1];
+
+        // 加减减法
+        /*a[0] = a[0] + a[1];
+        a[1] = a[0] - a[1];
+        a[0] = a[0] - a[1];*/
+    }
+
+    // Knuth洗牌算法
+    public static int[] KnuthShuffle(int[] a) {
+        int len = a.length;
+        int[] res = new int[len];
+
+        Random rand = new Random();
+        for(int i = len-1; i >= 0; --i) {
+            int j = rand.nextInt(i + 1);
+            // 交换元素
+            int temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+
+        return res;
+    }
+
+    // 睡眠排序
+    public static void sleepSort(int[] a) {
+        int len = a.length;
+        SleepThread[] sleepThread = new SleepThread[len];
+
+        for (int i = 0; i < len; i++) {
+            sleepThread[i] = new SleepThread(a[i]);
+        }
+
+        for (int i = 0; i < len; i++) {
+            sleepThread[i].start();
+        }
+    }
 }
