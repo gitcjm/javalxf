@@ -204,6 +204,18 @@ public class Algorithm {
         return arr;
     }
 
+    // 第n个斐波那契数是什么
+    public static long fiboNumber(int n) {
+        long[] a = new long[n];
+        a[0] = 1;
+        a[1] = 1;
+        for(int i = 2; i < n; i++) {
+            a[i] = a[i-1] + a[i-2];
+        }
+
+        return a[n-1];
+    }
+
     // 交换两个元素
     public static void swap(int[] a) {
         // 常规法
@@ -240,17 +252,4 @@ public class Algorithm {
         return res;
     }
 
-    // 睡眠排序
-    public static void sleepSort(int[] a) {
-        int len = a.length;
-        SleepThread[] sleepThread = new SleepThread[len];
-
-        for (int i = 0; i < len; i++) {
-            sleepThread[i] = new SleepThread(a[i]);
-        }
-
-        for (int i = 0; i < len; i++) {
-            sleepThread[i].start();
-        }
-    }
 }

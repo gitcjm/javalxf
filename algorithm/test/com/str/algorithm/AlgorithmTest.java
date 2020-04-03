@@ -84,6 +84,14 @@ public class AlgorithmTest {
     }
 
     @Test
+    public void fiboNumber() {
+        long expected = 21;
+        long actual = Algorithm.fiboNumber(8);
+        //Assert.assertEquals(expected, actual);
+        System.out.println(actual);
+    }
+
+    @Test
     public void swap() {
         int[] arr = new int[2];
         arr[0] = 2;
@@ -99,10 +107,6 @@ public class AlgorithmTest {
         System.out.println(Arrays.toString(arr));
     }
 
-    @Test
-    public void sleepSort() {
-        int[] arr = {2,3,5,6,8,1,4,7,9};
-        Algorithm.sleepSort(arr);
-        System.out.println(Arrays.toString(arr));
-    }
+
+
 }
