@@ -26,11 +26,16 @@ public class SortUtilTest {
 
     @After
     public void tearDown() throws Exception {
-        System.out.println("归并排序：" + Arrays.toString(arr));
+        System.out.println("排序：" + Arrays.toString(arr));
     }
 
     @Test
     public void mergeSort() {
         SortUtil.mergeSort(arr, 0, arr.length-1);
+    }
+
+    @Test
+    public void quickSort() {
+        SortUtil.quickSort(arr, 0, arr.length-1);
     }
 }

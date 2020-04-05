@@ -85,6 +85,7 @@ public class AlgorithmTest {
 
     @Test
     public void fiboNumber() {
+        // 第n个斐波那契数是什么
         long expected = 21;
         long actual = Algorithm.fiboNumber(8);
         //Assert.assertEquals(expected, actual);
