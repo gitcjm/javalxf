@@ -9,4 +9,5 @@
     </bean>
 
     <bean id="mailService" class="com.str.service.MailService"/>
+
 </beans>

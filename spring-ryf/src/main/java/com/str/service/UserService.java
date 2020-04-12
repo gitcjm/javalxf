@@ -1,9 +1,14 @@
 package com.str.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class UserService {
+    @Autowired
     private MailService mailService;
 
     public void setMailService(MailService mailService) {
@@ -21,7 +26,7 @@ public class UserService {
     static {
         users.add(new User(1, "361335019@qq.com", "123", "cjmqq"));
         users.add(new User(2, "163mail-cjm@163.com", "123", "cjm163"));
-        users.add(new User(3, "163mai_nql@163.com", "123", "nql163"));
+        users.add(new User(3, "163mail_nql@163.com", "123", "nql163"));
     }
 
     public User login(String email, String password) {
@@ -70,6 +75,10 @@ public class UserService {
         mailService.sendRegistrationMail(user);
 
         return user;
+    }
+
+    public void logout(User user) {
+        mailService.sendLogoutMail(user);
     }
 
 }
