@@ -15,39 +15,72 @@ public class Customer {
         return name;
     }
 
+    // 客户租赁
     public void addRental(Rental arg) {
         _rentals.addElement(arg);
     }
 
     // 结算单
     public String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
-        Enumeration rentals = _rentals.elements();
+        // 页眉信息
         String result = "Rental Record for " + getName() + "\n";
 
+        // 清单明细
+        Enumeration rentals = _rentals.elements();
         while (rentals.hasMoreElements()) {
-            double thisAmount = 0;
             Rental each = (Rental) rentals.nextElement();
-
-            // 计算金额
-            switch (each.getMovie().getPriceCode()) {
-                case Movie.REGULAR:
-                    thisAmount += 2;
-                    if (each.getDaysRented() > 2)
-                        thisAmount += (each.getDaysRented() - 2) *1.5;
-                    break;
-                case Movie.NEW_RELEASE:
-                    thisAmount += each.getDaysRented() * 3;
-                    break;
-                case Movie.CHILDRENS:
-                    thisAmount += 1.5;
-                    if (each.getDaysRented() > 3)
-                        thisAmount += (each.getDaysRented() - 3) * 1.5;
-                    break;
-            }
-
+            result += "\t" + each.getMovie().getTitle() + "\t" + each.getCharge() + "\n";
         }
+
+        // 页脚统计信息
+        result += "Amount owed is " + getTotalCharge() + "\n";
+        result += "You earned " + getTotalFrequentRenterPoints() + " frequent renter points";
+
+        return result;
+    }
+
+    // 计算总金额
+    private double getTotalCharge() {
+        double result = 0;
+
+        Enumeration rentals = _rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement();
+            result += each.getCharge();
+        }
+
+        return result;
+    }
+
+    // 计算总积分
+    private int getTotalFrequentRenterPoints() {
+        int result = 0;
+
+        Enumeration rentals = _rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement();
+            result += each.getFrequentRenterPoints();
+        }
+
+        return result;
+    }
+
+    // html版结算单
+    public String htmlStatement() {
+        // 页眉信息
+        String result = "<H1>Rentals for <EM>" + getName() + "</EM></H1><p>\n";
+
+        // 结算单明细
+        Enumeration rentals = _rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement();
+            result += "\t" + each.getMovie().getTitle() + "\t" + each.getCharge() + "<BR>\n";
+        }
+
+        // 页脚统计信息
+        result += "<p>You owe <EM> " + getTotalCharge() + "</EM>\n";
+        result += "<p>On this rental you earned <EM>" +
+                getTotalFrequentRenterPoints() + "</EM> frequent renter points";
 
         return result;
     }

@@ -16,4 +16,14 @@ public class Rental {
     public int getDaysRented() {
         return daysRented;
     }
+
+    // 客户租金
+    public double getCharge() {
+        return movie.getCharge(daysRented);
+    }
+
+    // 客户积分
+    public int getFrequentRenterPoints() {
+        return movie.getFrequentRenterPoints(daysRented);
+    }
 }
