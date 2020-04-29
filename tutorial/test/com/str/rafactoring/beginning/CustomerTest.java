@@ -49,6 +49,6 @@ public class CustomerTest {
 
     @Test
     public void htmlStatement() {
-        System.out.println(customers.get(0).htmlStatement());
+        System.out.println(customers.get(1).htmlStatement());
     }
 }
