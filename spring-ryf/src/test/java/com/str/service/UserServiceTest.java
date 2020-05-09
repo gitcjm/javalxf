@@ -40,8 +40,6 @@ public class UserServiceTest {
     @org.junit.Test
     public void register() {
         User user = userService.register("mail-cjm@163.com", "123", "崔军明");
-        System.out.println(user.getId());
-
     }
 
     @Test
@@ -55,7 +53,7 @@ public class UserServiceTest {
 
     @Test
     public void validate() {
-        validators.validate("163mail+cjm@163.com", "12345", "cjm");
+        validators.validate("163mail+cjm@163.com", "123456", "cjm");
     }
 
 }

@@ -29,6 +29,8 @@ public class UserService {
         users.add(new User(3, "163mail_nql@163.com", "123", "nql163"));
     }
 
+    // 监控login()方法性能
+    @MetricTime("login")
     public User login(String email, String password) {
         for (User user : users) {
             if (user.getEmail().equalsIgnoreCase(email) && user.getPassword().equals(password)) {
@@ -54,6 +56,8 @@ public class UserService {
         throw new RuntimeException("user not exist.");
     }
 
+    // 监控register()方法性能
+    @MetricTime("register")
     public User register(String email, String password, String name) {
         /*users.forEach(
                 (user) -> {
