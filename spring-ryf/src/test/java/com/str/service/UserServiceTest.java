@@ -22,7 +22,6 @@ public class UserServiceTest {
      * 使用Annotation配置，更进一步，可以完全不需要XML，让Spring自动扫描Bean并组装它们
      */
     ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-
     // 从容器中获取Bean
     UserService userService = context.getBean(UserService.class);
 

@@ -1,23 +1,25 @@
-package com.str;
+package com.str.spring_jdbc;
 
-import com.str.service.User;
-import com.str.service.UserService;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan
-//@EnableAspectJAutoProxy
+@EnableTransactionManagement    // 启用声明式事务
 @PropertySource("jdbc.properties")
 public class AppConfig {
-
     @Value("${jdbc.url}")
     String jdbcUrl;
 
@@ -39,10 +41,15 @@ public class AppConfig {
         return new HikariDataSource(config);
     }
 
-    // Spring定义了JDBC操作的骨架（基本步骤），具体细节操作由用户定义的方法来完成
+    // JdbcTemplate运行核心的JDBC工作流，如Statement的建立和执行，而我们只需要提供SQL语句和提取结果
     @Bean
     JdbcTemplate createJdbcTemplate(@Autowired DataSource dataSource) {
         return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    PlatformTransactionManager createTxManager(@Autowired DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 
 }

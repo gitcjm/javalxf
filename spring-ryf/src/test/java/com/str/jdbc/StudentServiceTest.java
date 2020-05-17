@@ -30,8 +30,8 @@ public class StudentServiceTest {
     @Test
     public void listScores() {
         dataService.connDB();
-        List<Student> studentList = studentService.listScores(dataService.getConn(), 2, 5);
-        for (Student student : studentList) {
+        List<Student> students = studentService.listScores(dataService.getConn(), 2, 5);
+        for (Student student : students) {
             student.printStudent();
         }
         dataService.closeDB();

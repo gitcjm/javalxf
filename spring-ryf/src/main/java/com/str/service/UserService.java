@@ -8,6 +8,7 @@ import java.util.List;
 
 @Component
 public class UserService {
+
     @Autowired
     private MailService mailService;
 
