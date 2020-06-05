@@ -11,7 +11,7 @@ import java.util.List;
 public class UserServiceTest {
 
     ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-    //UserService userService = context.getBean(UserService.class);
+    //service userService = context.getBean(service.class);
     UserServiceReduce userService = context.getBean(UserServiceReduce.class);
 
     @Before
@@ -20,7 +20,7 @@ public class UserServiceTest {
         userService.register("Bob@hotmail.com", "1234", "Bob");
         userService.register("Jerry@gmail.com", "12345", "Jerry");
         userService.register("Tom@Yahoo.com", "123", "Tom");
-        userService.register("George", "345", "George");
+        userService.register("George@gmail.com", "345", "George");
     }
 
     @Test

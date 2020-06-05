@@ -22,7 +22,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan
 @EnableTransactionManagement    // 启用声明式事务
-@PropertySource("jdbc.properties")
+@PropertySource("hibdb.properties") // 改日换成mysql数据库试试
 public class HibAppConfig {
     @Value("${jdbc.url}")
     String jdbcUrl;
@@ -65,7 +65,7 @@ public class HibAppConfig {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
         // 扫描指定的package获取所有entity class
-        sessionFactoryBean.setPackagesToScan("com.str.spring_jdbc.entity");
+        sessionFactoryBean.setPackagesToScan("com.str.spring_hib.entity");
         sessionFactoryBean.setHibernateProperties(props);
         return sessionFactoryBean;
     }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 @Component
-public class HibDbInitializer {
+public class HibDBInitializer {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
@@ -20,6 +20,12 @@ public class HibDbInitializer {
                 + "name VARCHAR(100) NOT NULL, "
                 + "createAt BIGINT NOT NULL, "
                 + "UNIQUE (email))");
+
+        jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS hib_book ("
+                + "id BIGINT IDENTITY NOT NULL PRIMARY KEY, "
+                + "title VARCHAR(100) NOT NULL, "
+                + "createAt BIGINT NOT NULL, "
+                + "UNIQUE (title))");
     }
 
 }
