@@ -19,7 +19,7 @@ public class UserDao extends AbstractDao<User> {
         long createAt = System.currentTimeMillis();
         int suc = super.getJdbcTemplate().update(
                 "INSERT INTO user (email, password, name, createAt)" +
-                        " VALUES (?,?,?, " + createAt + ")",
+                        " VALUES (?,?,?," + createAt + ")",
                 new Object[] {email, password, name}
         );
         if (1 != suc) {

@@ -6,8 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import javax.annotation.PostConstruct;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public abstract class AbstractDao<T> extends JdbcDaoSupport {
@@ -19,8 +19,8 @@ public abstract class AbstractDao<T> extends JdbcDaoSupport {
         super.setJdbcTemplate(jdbcTemplate);
     }
 
-    private String table;
     private Class<T> entityClass;
+    private String table;
     private RowMapper<T> rowMapper;
 
     public AbstractDao() {
@@ -30,15 +30,15 @@ public abstract class AbstractDao<T> extends JdbcDaoSupport {
         this.rowMapper = new BeanPropertyRowMapper<>(entityClass);
     }
 
-    private Class<T> getEntityClass() {
-        Method method = null;
-        try {
-            method = AbstractDao.class.getMethod("AbstractDao");
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+    // 测试完后，再修改回private
+    protected Class<T> getEntityClass() {
+        Type t = this.getClass().getGenericSuperclass();
+        if (t instanceof ParameterizedType) {
+            ParameterizedType pt = (ParameterizedType) t;
+            Type[] types = pt.getActualTypeArguments();
+            return (Class<T>) types[0];
         }
-        Parameter[] parameters = method.getParameters();
-        return (Class<T>) parameters[0].getParameterizedType();
+        throw new RuntimeException("参数化类型获取错误.");
     }
 
     public T getById(long id) {
