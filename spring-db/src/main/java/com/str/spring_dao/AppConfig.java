@@ -15,15 +15,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-@ComponentScan
 @Configuration
+@ComponentScan
 @EnableTransactionManagement
 @PropertySource("db.properties")
 public class AppConfig {
     @Value("${jdbc.url}")
     String jdbcUrl;
 
-    @Value("jdbc.username")
+    @Value("${jdbc.username}")
     String jdbcUsername;
 
     @Value("${jdbc.password}")

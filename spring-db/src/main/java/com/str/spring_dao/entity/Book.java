@@ -11,6 +11,8 @@ public class Book {
     private String writer;
     private long createAt;
 
+    public Book() {}
+
     public long getId() {
         return id;
     }

@@ -30,7 +30,7 @@ public class AppConfig {
     String jdbcPassword;
 
     @Bean
-    DataSource creatDataSource() {
+    DataSource createDataSource() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(jdbcUrl);
         config.setUsername(jdbcUsername);

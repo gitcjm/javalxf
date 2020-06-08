@@ -5,11 +5,16 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.PostConstruct;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
+@Component
+@Transactional
 public abstract class AbstractDao<T> extends JdbcDaoSupport {
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -31,7 +36,7 @@ public abstract class AbstractDao<T> extends JdbcDaoSupport {
     }
 
     // 测试完后，再修改回private
-    protected Class<T> getEntityClass() {
+    private Class<T> getEntityClass() {
         Type t = this.getClass().getGenericSuperclass();
         if (t instanceof ParameterizedType) {
             ParameterizedType pt = (ParameterizedType) t;
