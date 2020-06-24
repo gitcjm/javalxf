@@ -1,5 +1,7 @@
 package com.str.embed;
 
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,12 @@ public class EmbedServlet extends HttpServlet {
         }
         PrintWriter pw = resp.getWriter();
         pw.write("<h1>Hello, " + name + "!</h1>");
+        // 测试路径
+        pw.write("<p>URI: " + req.getRequestURI() + "</p>");
+        pw.write("<p>req.ContextPath: " + req.getContextPath() + "</p>");
+        ServletContext ctx = req.getServletContext();
+        pw.write("<p>ctx.ContextPath: " + ctx.getContextPath() + "</p>");
+
         pw.flush();
     }
 }
