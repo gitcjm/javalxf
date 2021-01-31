@@ -5,7 +5,7 @@ import java.util.Map;
 
 public abstract class AbstractSetting {
 
-    public String getSetting(String key) {
+    public final String getSetting(String key) {
         // 先从缓存读取
         String value = lookupCache(key);
         // 缓存中没有，再从数据库中读取
@@ -19,6 +19,10 @@ public abstract class AbstractSetting {
 
         return value;
     }
+
+    protected abstract String lookupCache(String key);
+
+    protected abstract void putIntoCache(String key, String value);
 
     // 模拟key-value数据库
     private static Map<String, String> map = new HashMap<>();
@@ -34,8 +38,5 @@ public abstract class AbstractSetting {
         return map.get(key);
     }
 
-    protected abstract String lookupCache(String key);
-
-    protected abstract void putIntoCache(String key, String value);
 }
 
