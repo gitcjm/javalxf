@@ -1,29 +1,15 @@
-package com.str.service;
+package com.str.entity;
 
-public class User {
-    private long id;
+import javax.persistence.*;
+
+@Entity
+@Table(name="user")
+public class User extends AbstractEntity {
     private String email;
     private String password;
     private String name;
 
-    // spring 需要一个缺省构造器 default constructor
-    public User() {}
-
-    public User(long id, String email, String password, String name) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
+    @Column(nullable = false, unique = true, length = 100)
     public String getEmail() {
         return email;
     }
@@ -32,6 +18,7 @@ public class User {
         this.email = email;
     }
 
+    @Column(nullable = false, length = 100)
     public String getPassword() {
         return password;
     }
@@ -40,6 +27,7 @@ public class User {
         this.password = password;
     }
 
+    @Column(nullable = false, length = 100)
     public String getName() {
         return name;
     }
@@ -47,4 +35,5 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
 }
