@@ -27,4 +27,27 @@ public class UserServiceTest {
         }
         System.out.println("User " + userId + " deleted failed.");
     }
+
+    @Test
+    public void updateUser() {
+        userService.updateUser(Long.valueOf(5), "崔军明");
+    }
+
+    @Test
+    public void login() {
+        User user = userService.login("bob@example.com", "123");
+        userService.print(user);
+    }
+
+    @Test
+    public void qryByCriteria() {
+        User user = userService.qryByCriteria("liaoxuefeng@lxf.com", "123");
+        userService.print(user);
+    }
+
+    @Test
+    public void qryByHQL() {
+        User user = userService.qryByHQL("cjm@str.com", "12345");
+        userService.print(user);
+    }
 }

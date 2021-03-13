@@ -1,11 +1,14 @@
 package com.str.service;
 
 import com.str.entity.User;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Component
 @Transactional
@@ -38,5 +41,31 @@ public class UserService {
         return false;
     }
 
-    public boolean updateUs
+    public void updateUser(Long id, String name) {
+        User user = hibernateTemplate.load(User.class, id);
+        user.setName(name);
+        hibernateTemplate.update(user);
+    }
+
+    public User login(String email, String password) {
+        User example = new User();
+        example.setEmail(email);
+        example.setPassword(password);
+        List<User> list = hibernateTemplate.findByExample(example);
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    public User qryByCriteria(String email, String password) {
+        DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
+        criteria.add(Restrictions.eq("email", email))
+                .add(Restrictions.eq("password", password));
+        List<User> list = (List<User>) hibernateTemplate.findByCriteria(criteria);
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    public User qryByHQL(String email, String password) {
+        List<User> list = (List<User>) hibernateTemplate.find(
+                "FROM User WHERE email=?0 AND password=?1", email, password);
+        return list.isEmpty() ? null : list.get(0);
+    }
 }

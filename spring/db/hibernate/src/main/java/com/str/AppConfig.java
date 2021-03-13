@@ -47,15 +47,17 @@ public class AppConfig {
     // 为了启用Hibernate，我们需要创建一个LocalSessionFactoryBean
     @Bean
     LocalSessionFactoryBean createSessionFactory(@Autowired DataSource dataSource) {
+        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+        // 设置DataSource
+        sessionFactoryBean.setDataSource(dataSource);
+        // 扫描指定的package获取所以entity class
+        sessionFactoryBean.setPackagesToScan("com.str.entity");
+        // 设置Hibernate配置
         Properties props = new Properties();
         // 廖雪峰在教程中用的是HSQLDB内存数据库，在程序初始化时才创建，所以需要下面这个配置。我的MYSQL数据库就不需要了
         //props.setProperty("hibernate.hbm2ddl.auto", "update");  // 生产环境不需要
         props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         props.setProperty("hibernate.show_sql", "ture");
-        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        sessionFactoryBean.setDataSource(dataSource);
-        // 扫描指定的package获取所以entity class
-        sessionFactoryBean.setPackagesToScan("com.str.entity");
         sessionFactoryBean.setHibernateProperties(props);
         return sessionFactoryBean;
     }
