@@ -12,7 +12,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * java bean和数据库表的映射
+ * java bean和数据库表的映射，不是这样！不要随便写，容易误导！
+ *
  * */
 final class Mapper<T> {
     final Class<T> entityClass;
