@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/*
+/**
 * 浏览器中输入http://localhost:8080/hello/，即可看到HelloServlet的输出。
-* 为啥路径是/hello/而不是/？因为一个Web服务器允许同时运行多个Web App，
-* 而我们的Web App叫hello，因此，第一级目录/hello表示Web App的名字，
-* 后面的/才是我们在HelloServlet中映射的路径。
+* 为啥路径是/hello/而不是/？
+* 因为一个Web服务器允许同时运行多个Web App，而我们的Web App叫hello，因此，第
+* 一级目录/hello表示Web App的名字，后面的/才是我们在HelloServlet中映射的路径。
 * */
 @WebServlet(urlPatterns = "/")
 public class HelloServlet extends HttpServlet {

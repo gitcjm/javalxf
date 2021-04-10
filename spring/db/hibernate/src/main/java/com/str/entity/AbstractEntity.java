@@ -30,6 +30,7 @@ public abstract class AbstractEntity {
         this.createdAt = createAt;
     }
 
+    // @Transient表示：这个属性不对应数据库表的字段，而是一个额外属性
     @Transient
     public ZonedDateTime getCreatedDateTime() {
         return Instant.ofEpochMilli(this.createdAt).atZone(ZoneId.systemDefault());

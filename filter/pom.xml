@@ -32,6 +32,10 @@
             <version>${tomcat.version}</version>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 
+    <build>
+        <finalName>web-filter</finalName>
+    </build>
 </project>
