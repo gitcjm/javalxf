@@ -1,7 +1,6 @@
 package com.str.service;
 
 import com.str.entity.User;
-import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.sql.Statement;
 import java.util.List;
 
-//@Aspect
 @Component
 public class UserService {
     final Logger logger = LoggerFactory.getLogger(getClass());
@@ -25,7 +23,7 @@ public class UserService {
 
     RowMapper<User> userRowMapper = new BeanPropertyRowMapper<>(User.class);
 
-    public User getUserById(String id) {
+    public User getUserById(long id) {
         String sql = "select * from user where id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[] { id }, userRowMapper);
     }
@@ -36,7 +34,7 @@ public class UserService {
     }
 
     public User signin(String email, String password) {
-        //logger.info("try login by {}...", email);
+        logger.info("try login by {}...", email);
         User user = getUserByEmail(email);
         if (user.getPassword().equals(password)) {
             return user;
@@ -45,7 +43,7 @@ public class UserService {
     }
 
     public User register(String email, String password, String name) {
-        //logger.info("try register by {}...", email);
+        logger.info("try register by {}...", email);
 
         User user = new User();
         user.setEmail(email);
@@ -71,9 +69,14 @@ public class UserService {
         return user;
     }
 
-    public List<User> getUsers(int pageIndex, int maxResults) {
-        int offset = maxResults * (pageIndex - 1);
-        String sql = "select * from user limit ? offset ?";
-        return jdbcTemplate.query(sql, new Object[] { maxResults, offset }, userRowMapper);
+    public List<User> getUsers(int pageIndex, int pageCount) {
+        int offset = pageCount * (pageIndex - 1);
+        String sql = "Select * From user limit ? offset ?";
+        return jdbcTemplate.query(sql, new Object[] { pageCount, offset }, userRowMapper);
+    }
+
+    public void updateUser(User user, String newPassword) {
+        String sql = "Update user set password = ? where email = ?";
+        jdbcTemplate.update(sql, new Object[] { newPassword, user.getEmail() });
     }
 }
