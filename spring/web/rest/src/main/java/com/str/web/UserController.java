@@ -2,15 +2,9 @@ package com.str.web;
 
 import com.str.entity.User;
 import com.str.service.UserService;
-import org.aspectj.lang.annotation.Aspect;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-//@RequestMapping("/user")
+@RequestMapping("/user")
 public class UserController {
     public static final String KEY_USER = "__user__";
 
@@ -40,7 +34,7 @@ public class UserController {
     public ModelAndView signin(HttpSession session) {
         User user = (User) session.getAttribute(KEY_USER);
         if (user != null) {
-            return new ModelAndView("redirect:/profile");
+            return new ModelAndView("redirect:/user/profile");
         }
         return new ModelAndView("signin.html");
     }
@@ -57,14 +51,40 @@ public class UserController {
             return new ModelAndView("signin.html",
                     Map.of("email", email, "error", "Signin failed"));
         }
-        return new ModelAndView("redirect:/profile");
+        return new ModelAndView("redirect:/user/profile");
+    }
+
+    /**
+     * 修改密码
+     * 经过一些挫折，我似乎理解了 redirect 的含义：
+     * 当还没有创建某一页面时（即还没有new ModelAndView()），是不能redirect的！
+     * 也就是说，没有view可供redirect !
+     * */
+    @GetMapping("/password")
+    public ModelAndView password(HttpSession session) {
+        User user = (User) session.getAttribute(KEY_USER);
+        if (user != null) {
+            return new ModelAndView("password.html");
+        }
+        return new ModelAndView("signin.html");
+    }
+
+    @PostMapping("/password")
+    public ModelAndView changePassword(
+            @RequestParam("newPassword") String newPassword,
+            HttpSession session) {
+        User user = (User) session.getAttribute(KEY_USER);
+        userService.updateUser(user, newPassword);
+        User user1 = userService.getUserByEmail(user.getEmail());
+        session.setAttribute(KEY_USER, user1);
+        return new ModelAndView("redirect:/user/profile");
     }
 
     @GetMapping("/profile")
     public ModelAndView profile(HttpSession session) {
         User user = (User) session.getAttribute(KEY_USER);
         if (user == null) {
-            return new ModelAndView("redirect:/signin");
+            return new ModelAndView("redirect:/user/signin");
         }
         return new ModelAndView("profile.html", Map.of("user", user));
     }
@@ -72,9 +92,12 @@ public class UserController {
     @GetMapping("/signout")
     public String signout(HttpSession session) {
         session.removeAttribute(KEY_USER);
-        return "redirect:/signin";
+        return "redirect:/user/signin";
     }
 
+    /**
+     * 页面创建都需要通过@GetMapping？
+     * */
     @GetMapping("/register")
     public ModelAndView register() {
         return new ModelAndView("register.html");
@@ -92,18 +115,21 @@ public class UserController {
                     Map.of("email", email, "error", "Register failed."));
         }
 
-        return new ModelAndView("redirect:/signin");
+        return new ModelAndView("redirect:/user/signin");
     }
 
-    @GetMapping("/list_users")
-    public ModelAndView listUsers() {
-        List<User> users = userService.getUsers(1, 3);
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("list_users.html");
-        mv.addObject("users", users);
-        return mv;
-        // 现代写法：
-        // return new ModelAndView("list_users.html", "users", users);
+    @GetMapping("/users")
+    public ModelAndView allUsers() {
+        List<User> users = userService.getUsers(1, 10);
+        return new ModelAndView("users.html", "users", users);
+    }
+
+    @PostMapping(value = "/rest",
+            consumes = "application/json;charset=UTF-8",
+            produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String rest(@RequestBody User user) {
+        return "{\"restSupport\":true}";
     }
 
 }
