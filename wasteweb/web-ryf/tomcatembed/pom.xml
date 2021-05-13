@@ -16,7 +16,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <java.version>11</java.version>
 
-        <tomcat.version>9.0.39</tomcat.version>
+        <tomcat.version>9.0.41</tomcat.version>
         <pebble.version>3.1.2</pebble.version>
         <jackson.version>2.11.0</jackson.version>
 
