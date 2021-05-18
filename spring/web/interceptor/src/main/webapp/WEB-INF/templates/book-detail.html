@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+
+{% block main %}
+
+<h3>书籍详情</h3>
+<p>Id: {{ book.id }}</p>
+<p>书名: {{ book.title }}</p>
+<p>作者: {{ book.author}}</p>
+<p>上架时间: {{ book.createdDateTime }}</p>
+<p>简介: {{ book.intro }}</p>
+
+{% endblock %}

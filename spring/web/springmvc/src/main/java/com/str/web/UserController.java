@@ -103,7 +103,7 @@ public class UserController {
         mv.addObject("users", users);
         return mv;
         // 现代写法：
-        // return new ModelAndView("list_users.html", "users", users);
+        // return new ModelAndView("list_users.html", Map.of("users", users));
     }
 
 }

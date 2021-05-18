@@ -26,7 +26,7 @@ public abstract class AbstractEntity {
 
     public String getCreatedDateTime() {
         return Instant.ofEpochMilli(this.createdAt).atZone(ZoneId.systemDefault())
-                .format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
+                .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     }
 
     public void preInsert() {

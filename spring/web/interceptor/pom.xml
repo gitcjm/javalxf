@@ -29,6 +29,11 @@
             <artifactId>HikariCP</artifactId>
             <version>3.4.5</version>
         </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.5.2</version>
+        </dependency>
         <!-- spring framework -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -45,16 +50,24 @@
             <artifactId>spring-webmvc</artifactId>
             <version>5.2.12.RELEASE</version>
         </dependency>
+        <!-- view template -->
+        <dependency>
+            <groupId>io.pebbletemplates</groupId>
+            <artifactId>pebble-spring5</artifactId>
+            <version>3.1.2</version>
+        </dependency>
         <!-- tomcat embed -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
             <version>9.0.39</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
             <version>9.0.39</version>
+            <scope>provided</scope>
         </dependency>
         <!-- test -->
         <dependency>
@@ -62,12 +75,6 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
-        </dependency>
-        <!-- view template -->
-        <dependency>
-            <groupId>io.pebbletemplates</groupId>
-            <artifactId>pebble-spring5</artifactId>
-            <version>3.1.2</version>
         </dependency>
         <!-- logging -->
         <dependency>
@@ -80,5 +87,6 @@
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
+
     </dependencies>
 </project>
