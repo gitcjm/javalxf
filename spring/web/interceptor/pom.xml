@@ -5,26 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.str</groupId>
-    <artifactId>springmvc</artifactId>
+    <artifactId>interceptor</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>10</source>
-                    <target>10</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.resource>11</maven.compiler.resource>
+        <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <java.version>11</java.version>
     </properties>
@@ -41,7 +29,11 @@
             <artifactId>HikariCP</artifactId>
             <version>3.4.5</version>
         </dependency>
-
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.5.2</version>
+        </dependency>
         <!-- spring framework -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -58,33 +50,13 @@
             <artifactId>spring-webmvc</artifactId>
             <version>5.2.12.RELEASE</version>
         </dependency>
-        <!-- jpa 注解 -->
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-
-        <!-- 集成 Pebble view 前端模板引擎 -->
+        <!-- view template -->
         <dependency>
             <groupId>io.pebbletemplates</groupId>
             <artifactId>pebble-spring5</artifactId>
             <version>3.1.2</version>
         </dependency>
-
-        <!-- 使用logback日志 -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-
-        <!-- 嵌入式 tomcat -->
+        <!-- tomcat embed -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
@@ -97,20 +69,24 @@
             <version>9.0.39</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- 测试 -->
+        <!-- test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- AOP -->
+        <!-- logging -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-            <version>5.2.12.RELEASE</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.2.3</version>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
     </dependencies>
 </project>

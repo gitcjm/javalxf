@@ -1,0 +1,30 @@
+{% extends "_base.html" %}
+
+{% block main %}
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>书名</th>
+        <th>作者</th>
+        <th>上架时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.id }}</td>
+        <td><a href="/book/book-detail/{{ book.id }}">{{ book.title }}</a></td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.createdDateTime }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<p>
+    <a href="/book/add-book">Add a new book</a>
+</p>
+
+{% endblock %}

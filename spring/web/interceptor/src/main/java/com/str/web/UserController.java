@@ -2,15 +2,9 @@ package com.str.web;
 
 import com.str.entity.User;
 import com.str.service.UserService;
-import org.aspectj.lang.annotation.Aspect;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-//@RequestMapping("/user")
+@RequestMapping("/user")
 public class UserController {
     public static final String KEY_USER = "__user__";
 
@@ -38,11 +32,11 @@ public class UserController {
 
     @GetMapping("/signin")
     public ModelAndView signin(HttpSession session) {
-        User user = (User) session.getAttribute(KEY_USER);
-        if (user != null) {
-            return new ModelAndView("redirect:/profile");
+        User user = (User)session.getAttribute(KEY_USER);
+        if (user == null) {
+            return new ModelAndView("signin.html");
         }
-        return new ModelAndView("signin.html");
+        return new ModelAndView("redirect:/user/profile");
     }
 
     @PostMapping("/signin")
@@ -57,31 +51,31 @@ public class UserController {
             return new ModelAndView("signin.html",
                     Map.of("email", email, "error", "Signin failed"));
         }
-        return new ModelAndView("redirect:/profile");
+        return new ModelAndView("redirect:/user/profile");
     }
 
     @GetMapping("/profile")
     public ModelAndView profile(HttpSession session) {
         User user = (User) session.getAttribute(KEY_USER);
-        if (user == null) {
-            return new ModelAndView("redirect:/signin");
+        if (user != null) {
+            return new ModelAndView("profile.html", Map.of("user", user));
         }
-        return new ModelAndView("profile.html", Map.of("user", user));
+        return new ModelAndView("redirect:/user/signin");
     }
 
     @GetMapping("/signout")
-    public String signout(HttpSession session) {
+    public ModelAndView signout(HttpSession session) {
         session.removeAttribute(KEY_USER);
-        return "redirect:/signin";
+        return new ModelAndView("redirect:/user/signin");
     }
 
     @GetMapping("/register")
-    public ModelAndView register() {
-        return new ModelAndView("register.html");
+    public String register() {
+        return "register.html";
     }
 
     @PostMapping("/register")
-    public ModelAndView register(
+    public ModelAndView doRegister(
             @RequestParam("email") String email,
             @RequestParam("password") String password,
             @RequestParam("name") String name) {
@@ -91,19 +85,19 @@ public class UserController {
             return new ModelAndView("register.html",
                     Map.of("email", email, "error", "Register failed."));
         }
-
-        return new ModelAndView("redirect:/signin");
+        return new ModelAndView("redirect:/user/signin");
     }
 
-    @GetMapping("/list_users")
-    public ModelAndView listUsers() {
-        List<User> users = userService.getUsers(1, 3);
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("list_users.html");
-        mv.addObject("users", users);
-        return mv;
-        // 现代写法：
-        // return new ModelAndView("list_users.html", Map.of("users", users));
+    @GetMapping("/users")
+    public ModelAndView users() {
+        List<User> users = userService.getEntityList(1, 4);
+        return new ModelAndView("users.html", "users", users);
     }
 
+    // 处理异常
+    @ExceptionHandler(RuntimeException.class)
+    public ModelAndView handleUnknowException(Exception ex) {
+        return new ModelAndView("500.html",
+                Map.of("error", ex.getClass().getSimpleName(), "message", ex.getMessage()));
+    }
 }
