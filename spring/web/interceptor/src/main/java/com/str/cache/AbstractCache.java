@@ -2,6 +2,10 @@ package com.str.cache;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * 采用模板方法模式，实现缓存抽象基类
+ * 子类通过map或redis、memcached实现缓存
+ * */
 public abstract class AbstractCache<E> {
 
     public final E getEntity(long id) {

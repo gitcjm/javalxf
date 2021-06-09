@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+
+{% block main %}
+
+<h3>User Detail</h3>
+<!--<p><img class="rounded" style="..." src="{{ user.imageUrl }}"> </p>-->
+<p>Id: {{ user.id }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Name: {{ user.name }}</p>
+<p>Registered at: {{ user.createdDateTime }}</p>
+
+{% endblock %}
