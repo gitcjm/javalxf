@@ -36,4 +36,10 @@ public class User extends AbstractEntity {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return String.format("User[id=%s, email=%s, password=%s, name=%s, createdAt=%s, createdDateTime=%s]",
+                getId(), getEmail(), getPassword(), getName(), getCreatedAt(), getCreatedDateTime());
+    }
+
 }

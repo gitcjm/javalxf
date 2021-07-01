@@ -15,7 +15,7 @@ public class UserServiceTest {
     @Test
     public void register() {
         User user = userService.register("hiber@hibernate.com", "123", "Hiber");
-        userService.print(user);
+        System.out.println(user);
     }
 
     @Test
@@ -36,18 +36,18 @@ public class UserServiceTest {
     @Test
     public void login() {
         User user = userService.login("bob@example.com", "123");
-        userService.print(user);
+        System.out.println(user);
     }
 
     @Test
     public void qryByCriteria() {
         User user = userService.qryByCriteria("liaoxuefeng@lxf.com", "123");
-        userService.print(user);
+        System.out.println(user);
     }
 
     @Test
     public void qryByHQL() {
         User user = userService.qryByHQL("cjm@str.com", "12345");
-        userService.print(user);
+        System.out.println(user);
     }
 }
