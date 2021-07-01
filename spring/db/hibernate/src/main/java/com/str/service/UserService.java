@@ -16,10 +16,6 @@ public class UserService {
     @Autowired
     HibernateTemplate hibernateTemplate;
 
-    public void print(User user) {
-        System.out.println(user.getId() + "\t" + user.getEmail() + "\t" + user.getPassword() + "\t" + user.getName());
-    }
-
     public User register(String email, String password, String name) {
         User user = new User();
         user.setEmail(email);

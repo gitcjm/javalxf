@@ -1,0 +1,25 @@
+server:
+  port: ${APP_PORT:8080}
+
+spring:
+  application:
+    name: ${APP_NAME:unnamed}
+  datasource:
+    url: jdbc:mysql://localhost:3306/livebook?useSSL=false&characterEncoding=utf-8
+    username: root
+    password: Mysql80@deb
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # HikariCP config
+    hikari:
+      auto-commit: false
+      connection-timeout: 3000
+      validation-timeout: 3000
+      max-lifetime: 60000
+      maximum-pool-size: 20
+      minimum-idle: 10
+
+pebble:
+  # 前缀设为空, 或空字符串"", 都可以！
+  suffix:
+  # 开发阶段不缓存, 以便马上看到修改后的效果
+  cache: false

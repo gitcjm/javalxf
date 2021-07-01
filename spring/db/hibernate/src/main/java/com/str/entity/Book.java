@@ -3,6 +3,7 @@ package com.str.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name="book")
 public class Book extends AbstractEntity {
     private String title;
     private String author;
