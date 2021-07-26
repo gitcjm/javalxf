@@ -1,0 +1,27 @@
+{% extends "_base.html" %}
+
+{% block main %}
+
+<h3>书籍详情</h3>
+<p>书名: {{ book.name }}</p>
+<p>原名: {{ book.originalName }}</p>
+<p>分类: {{ book.categoryCode }}</p>
+<p>作者: {{ book.author }}</p>
+<p>出版社: {{ book.publisher }}</p>
+<p>语言: {{ book.language }}</p>
+<p>价格: {{ book.price }}</p>
+<p>折扣: {{ book.discount }}</p>
+<p>书号: {{ book.isbn }}</p>
+<p>出版日期: {{ book.pubDateTime }}</p>
+<p>状态: {{ book.stateAsString }}</p>
+<p>库存: {{ book.stock }}</p>
+<p>已出售: {{ book.sold }}</p>
+<p>评分: {{ book.rating }}</p>
+<p>评论人数: {{ book.ratingCount }}</p>
+<p>简介: {{ book.description }}</p>
+
+<p>
+    <a href="/book/book-update/{{ book.id }}">Edit book info</a>
+</p>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "_base.html" %}
+
+{% block main %}
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>书名</th>
+        <th>原名</th>
+        <th>分类</th>
+        <th>作者</th>
+        <th>出版社</th>
+        <th>语言</th>
+        <th>价格</th>
+        <th>折扣</th>
+        <th>书号</th>
+        <th>出版日期</th>
+        <th>状态</th>
+        <th>库存</th>
+        <th>已出售</th>
+        <th>评分</th>
+        <th>评论人数</th>
+        <th>简介</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+    <tr>
+        <td><a href="/book/book-detail/{{ book.id }}">{{ book.name }}</a></td>
+        <td>{{ book.originalName }}</td>
+        <td>{{ book.categoryCode }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.publisher}}</td>
+        <td>{{ book.language }}</td>
+        <td>{{ book.price }}</td>
+        <td>{{ book.discount }}</td>
+        <td>{{ book.isbn }}</td>
+        <td>{{ book.pubDateTime }}</td>
+        <td>{{ book.stateAsString }}</td>
+        <td>{{ book.stock }}</td>
+        <td>{{ book.sold }}</td>
+        <td>{{ book.rating }}</td>
+        <td>{{ book.ratingCount }}</td>
+        <td>{{ book.description }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<p>
+    <a href="/book/add-book">Add a new book</a>
+</p>
+
+{% endblock %}

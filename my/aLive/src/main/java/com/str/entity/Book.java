@@ -10,10 +10,16 @@ import java.util.List;
 @Table(name="t_book")
 public class Book extends AbstractEntity {
     // ! 使用Hibernate时, 不要使用基本类型的属性, 总是使用包装类型, 如Long或Integer.
+    public static final int STATE_SELLING = 0;
+    public static final int STATE_COMING_SOON = 1;
+    public static final int STATE_SHUTDOWN = 2;
+    public static final String[] STATES = {
+            "正常销售", "即将上市", "停售"
+    };
 
     private String name;
     private String originalName;
-    private Integer categoryId = Category.ROOT_ID;
+    private Integer categoryCode = Category.ROOT_CODE;
 
     private String author;
     private String publisher;
@@ -25,15 +31,15 @@ public class Book extends AbstractEntity {
     private Long pubDate;
     private String description;
 
-    private Integer state;
+    private Integer state;  // 状态
     private Integer stock;  // 库存
-    private Integer sold;   // 售罄
+    private Integer sold;   // 已出售
 
     private Integer rating; // 用户对书籍评价的总分
     private Integer ratingCount;    // 用户对书籍评价的人次
 
-    // @OneToMany注解不会将该属性持久化, @ManyToOne注解会持久化
-    private List<Comment> comments;  // 本书的所有评论
+    /*private List<Comment> comments;  // 本书的所有评论
+    private List<OrderItem> orderItems;*/
 
     @Column(nullable = false, length = 100)
     public String getName() {
@@ -53,16 +59,16 @@ public class Book extends AbstractEntity {
         this.originalName = originalName;
     }
 
-    @Column(nullable = false)
-    public Integer getCategoryId() {
-        return categoryId;
+    @Column(nullable = false, columnDefinition = "Integer default 0x01000000")
+    public Integer getCategoryCode() {
+        return categoryCode;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryCode(Integer categoryCode) {
+        this.categoryCode = categoryCode;
     }
 
-    @Column(length = 100)
+    @Column(nullable = false, length = 50)
     public String getAuthor() {
         return author;
     }
@@ -107,7 +113,7 @@ public class Book extends AbstractEntity {
         this.discount = discount;
     }
 
-    @Column
+    @Column(nullable = false, unique = true)
     public String getIsbn() {
         return isbn;
     }
@@ -179,6 +185,7 @@ public class Book extends AbstractEntity {
         this.ratingCount = ratingCount;
     }
 
+    /*// @OneToMany注解不会将该属性持久化, @ManyToOne注解会持久化
     @OneToMany(targetEntity = Comment.class, mappedBy = "book")
     public List<Comment> getComments() {
         return comments;
@@ -188,10 +195,42 @@ public class Book extends AbstractEntity {
         this.comments = comments;
     }
 
+    @OneToMany(targetEntity = OrderItem.class, mappedBy = "book")
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }*/
+
     @Transient
     public String getPubDateTime() {
         return Instant.ofEpochMilli(this.pubDate).atZone(ZoneId.systemDefault())
-                .format(DateTimeFormatter.ISO_OFFSET_DATE);
+                .format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
+
+    @Transient
+    public int getRatingLevel() {
+        if (ratingCount == 0) {
+            return 0;
+        }
+        return (int) (10*((float)rating/ratingCount+0.05f)*2)/10;
+    }
+
+    @Transient
+    public String getStateAsString() {
+        return STATES[state];
+    }
+
+    @Transient
+    public String getImage() {
+        int hash = this.getId().hashCode();
+        int dir1 = (hash & 0xF0) >>> 4;
+        int dir2 = hash & 0xF;
+        return dir1 + "/" + dir2 + "/" + this.getId() + ".jpg";
+    }
+
+
 
 }

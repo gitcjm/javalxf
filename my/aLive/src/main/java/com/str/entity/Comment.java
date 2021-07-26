@@ -9,7 +9,6 @@ public class Comment extends AbstractEntity {
     // 通过@JoinColumn注解, 将该属性持久化为外键
     private Book book;    // FK
     private User user;    // FK
-
     private Integer rating;     // 评分
     private String content;     // 评论内容
 

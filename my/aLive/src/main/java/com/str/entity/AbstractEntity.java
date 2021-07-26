@@ -6,6 +6,13 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @MappedSuperclass
+@Table(
+        indexes = @Index(
+                name = "idx_createdAt",
+                columnList = "createdAt",
+                unique = true
+        )
+)
 public abstract class AbstractEntity {
     private Long id;
     private Long createdAt;

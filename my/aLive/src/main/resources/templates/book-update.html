@@ -1,0 +1,86 @@
+{% extends "_base.html" %}
+
+{% block main %}
+
+<form method="post" action="/book/book-update">
+    <h3>编辑书籍信息</h3>
+
+    {% if error != null %}
+    <div class="form-group">
+        <p class="text-danger">{{ error }}</p>
+    </div>
+    {% endif %}
+
+    <div class="form-group">
+        <input name="id" type="hidden" class="form-control" value="{{ book.id }}" >
+    </div>
+    <div class="form-group">
+        <label>book name</label>
+        <input name="name" type="text" class="form-control" value="{{ book.name }}">
+    </div>
+    <div class="form-group">
+        <label>book original name</label>
+        <input name="originalName" type="text" class="form-control" value="{{ book.originalName }}">
+    </div>
+    <div class="form-group">
+        <label>category code</label>
+        <input name="categoryCode" type="text" class="form-control" value="{{ book.categoryCode }}">
+    </div>
+    <div class="form-group">
+        <label>author</label>
+        <input name="author" type="text" class="form-control" value="{{ book.author }}">
+    </div>
+    <div class="form-group">
+        <label>publisher</label>
+        <input name="publisher" type="text" class="form-control" value="{{ book.publisher }}">
+    </div>
+    <div class="form-group">
+        <label>language</label>
+        <input name="language" type="text" class="form-control" value="{{ book.language }}">
+    </div>
+    <div class="form-group">
+        <label>price</label>
+        <input name="price" type="text" class="form-control" value="{{ book.price }}"
+    </div>
+    <div class="form-group">
+        <label>discount</label>
+        <input name="discount" type="text" class="form-control" value="{{ book.discount }}">
+    </div>
+    <div class="form-group">
+        <label>ISBN</label>
+        <input name="isbn" type="text" class="form-control" value="{{ book.isbn }}">
+    </div>
+    <div class="form-group">
+        <label>publish date</label>
+        <input name="pubDate" type="text" class="form-control" value="{{ book.pubDateTime }}">
+    </div>
+    <div class="form-group">
+        <label>state</label>
+        <input name="state" type="text" class="form-control" value="{{ book.stateAsString }}">
+    </div>
+    <div class="form-group">
+        <label>stock</label>
+        <input name="stock" type="text" class="form-control" value="{{ book.stock }}">
+    </div>
+    <div class="form-group">
+        <label>sole</label>
+        <input name="sold" type="text" class="form-control" value="{{ book.sold }}">
+    </div>
+    <div class="form-group">
+        <label>rating</label>
+        <input name="rating" type="text" class="form-control" value="{{ book.rating }}">
+    </div>
+    <div class="form-group">
+        <label>rating count</label>
+        <input name="ratingCount" type="text" class="form-control" value="{{ book.ratingCount }}">
+    </div>
+    <div class="form-group">
+        <label>description</label>
+        <input name="description" type="text" class="form-control text-area" pvalue="{{ book.description }}">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline-primary">Submit</button>
+    </div>
+</form>
+
+{% endblock %}

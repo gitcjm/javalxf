@@ -14,9 +14,12 @@ spring:
       auto-commit: false
       connection-timeout: 3000
       validation-timeout: 3000
-      max-lifetime: 60000
+      idle-timeout: 30000
+      max-lifetime: 120000
       maximum-pool-size: 20
-      minimum-idle: 10
+      minimum-idle: 2
+  jpa:
+    open-in-view: false
 
 pebble:
   # 前缀设为空, 或空字符串"", 都可以！
